@@ -1,26 +1,33 @@
 package cl.GestionDrones.v1.EmpresasProveedoras.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-
-import jakarta.validation.Valid;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import cl.GestionDrones.v1.EmpresasProveedoras.dto.AeronaveResponse;
 import cl.GestionDrones.v1.EmpresasProveedoras.dto.BitacoraResponse;
 import cl.GestionDrones.v1.EmpresasProveedoras.dto.CreateEmpresaRequest;
+import cl.GestionDrones.v1.EmpresasProveedoras.dto.PilotoResponse;
 import cl.GestionDrones.v1.EmpresasProveedoras.dto.UpdateEmpresaRequest;
 import cl.GestionDrones.v1.EmpresasProveedoras.model.EmpresaProveedora;
 import cl.GestionDrones.v1.EmpresasProveedoras.service.EmpresasProveedorasService;
 import cl.GestionDrones.v1.EmpresasProveedoras.webclient.AeronavesWebClient;
 import cl.GestionDrones.v1.EmpresasProveedoras.webclient.BitacorasWebClient;
 import cl.GestionDrones.v1.EmpresasProveedoras.webclient.PilotosWebClient;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/empresas-proveedoras")
@@ -230,7 +237,7 @@ public class EmpresasProveedorasController {
     @Autowired
     private PilotosWebClient pilotosWebClient;
 
-    @GetMapping("/aeronaves/seguros-por-vencer")
+    @GetMapping("/pilotos/por-vencer")
     public ResponseEntity<?> getPilotosPorVencer() {
 
         List<PilotoResponse> pilotos =
@@ -250,11 +257,6 @@ public class EmpresasProveedorasController {
 
         
     }
-
-
-
-
-
 //bit
     @Autowired
     private BitacorasWebClient bitacorasWebClient;
