@@ -20,6 +20,7 @@ import cl.GestionDrones.v1.EmpresasProveedoras.model.EmpresaProveedora;
 import cl.GestionDrones.v1.EmpresasProveedoras.service.EmpresasProveedorasService;
 import cl.GestionDrones.v1.EmpresasProveedoras.webclient.AeronavesWebClient;
 import cl.GestionDrones.v1.EmpresasProveedoras.webclient.BitacorasWebClient;
+import cl.GestionDrones.v1.EmpresasProveedoras.webclient.PilotosWebClient;
 
 @RestController
 @RequestMapping("/api/v1/empresas-proveedoras")
@@ -224,18 +225,57 @@ public class EmpresasProveedorasController {
         return ResponseEntity.ok(aeronaves);
 
         
+    }//seguros
+
+    @Autowired
+    private PilotosWebClient pilotosWebClient;
+
+    @GetMapping("/aeronaves/seguros-por-vencer")
+    public ResponseEntity<?> getPilotosPorVencer() {
+
+        List<PilotoResponse> pilotos =
+                pilotosWebClient.obtenerPilotosPorVencer();
+
+        if (pilotos == null || pilotos.isEmpty()) {
+
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Sin resultados");
+            error.put("mensaje",
+                    "No existen pilotos con certificaciones que venzan en los próximos 10 días");
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        }
+
+        return ResponseEntity.ok(pilotos);
+
+        
     }
 
+
+
+
+
+//bit
     @Autowired
     private BitacorasWebClient bitacorasWebClient;
 
     @GetMapping("/bitacoras")
     public ResponseEntity<?> listarBitacoras() {
 
-        Map<String, Object> respuesta =
+        List<BitacoraResponse> bitacoras =
                 bitacorasWebClient.obtenerTodasLasBitacoras();
 
-        return ResponseEntity.ok(respuesta);
+        if (bitacoras == null || bitacoras.isEmpty()){
+
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Sin resultados");
+            error.put("mensaje",
+                    "No existen aeronaves con seguros que venzan en los próximos 10 días");
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        }
+
+            return ResponseEntity.ok(bitacoras);
     }
 
 }
