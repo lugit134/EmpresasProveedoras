@@ -225,7 +225,7 @@ public class EmpresasProveedorasController {
         return ResponseEntity.ok(aeronaves);
 
         
-    }//seguros
+    }//seguross
 
     @Autowired
     private PilotosWebClient pilotosWebClient;
