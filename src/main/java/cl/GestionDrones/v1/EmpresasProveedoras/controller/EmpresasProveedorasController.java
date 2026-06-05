@@ -236,9 +236,8 @@ public class EmpresasProveedorasController {
 
     @Autowired
     private PilotosWebClient pilotosWebClient;
-
     @GetMapping("/pilotos/por-vencer")
-    public ResponseEntity<?> getPilotosPorVencer() {
+    public ResponseEntity<?> pilotosPorVencer() {
 
         List<PilotoResponse> pilotos =
                 pilotosWebClient.obtenerPilotosPorVencer();
@@ -257,6 +256,8 @@ public class EmpresasProveedorasController {
 
         
     }
+
+    
 //bit
     @Autowired
     private BitacorasWebClient bitacorasWebClient;
